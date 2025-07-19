@@ -125,7 +125,7 @@ td {
   animation: fadeIn 0.3s ease-in-out;
 }
 .detail-card {
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem 1rem 1rem;
 }
 @keyframes fadeIn {
   from {
@@ -147,4 +147,7 @@ td {
 .kill-grid span {
   font-weight: bold;
   color: inherit;
+}
+.kill-grid {
+  gap: 0.5rem 3rem; /* var 2rem */
 }
