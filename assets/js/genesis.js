@@ -148,6 +148,8 @@ themeBtn.addEventListener("click", () => {
 
 // Hent sist brukte tema fra localStorage
 window.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("theme") || "dark";
-  document.body.classList.add(saved + "-theme");
+  const saved = localStorage.getItem("theme") || "light"; // 👈 her er endringen
+  document.body.classList.remove("dark-theme", "light-theme");
+  document.body.classList.add(`${saved}-theme`);
 });
+
