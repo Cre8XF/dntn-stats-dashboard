@@ -1,87 +1,132 @@
-body {
+body.dark-theme {
   background-color: #0d0d0d;
   color: #f5f5f5;
-  font-family: 'Segoe UI', sans-serif;
-  padding: 2rem;
 }
-
-h1 {
-  text-align: center;
+.dark-theme h1 {
   color: #00ffc8;
 }
-
-.filters {
-  text-align: center;
-  margin-bottom: 1rem;
+.dark-theme .filters {
   background: #1a1a1a;
-  padding: 0.8rem;
-  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 255, 200, 0.1);
 }
-
-.filters input {
-  margin: 0.3rem;
-  padding: 0.4rem;
-  border-radius: 6px;
-  border: 1px solid #555;
+.dark-theme .filters input {
   background: #222;
   color: #fff;
+  border: 1px solid #555;
 }
-
-button {
-  padding: 0.5rem 1rem;
-  margin-left: 0.5rem;
+.dark-theme button {
   background-color: #222;
   border: 1px solid #666;
   color: #fff;
-  cursor: pointer;
-  transition: background 0.3s;
 }
-
-button:hover {
+.dark-theme button:hover {
   background-color: #00ffc8;
   color: #000;
 }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
+.dark-theme table {
   background-color: #131313;
   box-shadow: 0 0 10px rgba(0, 255, 200, 0.05);
 }
-
-th,
-td {
-  padding: 0.6rem 1rem;
-  border-bottom: 1px solid #333;
-  text-align: left;
-  color: #eaeaea;
-}
-
-th {
+.dark-theme th {
   background-color: #111;
   color: #00ffc8;
 }
-
-tr:hover {
+.dark-theme tr:hover {
   background-color: #222;
-  cursor: pointer;
 }
-
-.detail-row {
+.dark-theme .detail-row {
   background-color: #1d1d1d;
 }
-
-.detail-card {
-  padding: 1rem 2rem;
+.dark-theme .detail-card {
   border-left: 4px solid #00ffc8;
   box-shadow: 0 0 16px rgba(0, 255, 200, 0.4);
-  animation: fadeIn 0.3s ease-in-out;
   background: #202020;
   color: #fff;
 }
 
+body.light-theme {
+  background: linear-gradient(145deg, #d8d8d8, #efefef);
+  color: #222;
+}
+.light-theme h1 {
+  color: #004466;
+}
+.light-theme .filters {
+  background: #d5d5d5;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.light-theme .filters input {
+  background: #fff;
+  color: #222;
+  border: 1px solid #aaa;
+}
+.light-theme button {
+  background-color: #c1c1c1;
+  border: 1px solid #999;
+  color: #222;
+}
+.light-theme button:hover {
+  background-color: #006699;
+  color: #fff;
+}
+.light-theme table {
+  background: #f5f5f5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+.light-theme th {
+  background-color: #cfcfcf;
+  color: #004466;
+}
+.light-theme tr:hover {
+  background-color: #e6f0f5;
+}
+.light-theme .detail-row {
+  background-color: #f0f0f0;
+}
+.light-theme .detail-card {
+  border-left: 4px solid #007acc;
+  background: #ffffff;
+  color: #222;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+}
+.filters {
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  border-radius: 10px;
+}
+.filters input {
+  margin: 0.3rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+button {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+th,
+td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+.detail-row {
+  animation: fadeIn 0.3s ease-in-out;
+}
+.detail-card {
+  padding: 1rem 2rem;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;

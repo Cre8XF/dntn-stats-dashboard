@@ -131,3 +131,23 @@ document.getElementById("eventSelect").addEventListener("change", e => {
 });
 
 loadData(currentData);
+const themeBtn = document.getElementById("toggleThemeBtn");
+
+themeBtn.addEventListener("click", () => {
+  const body = document.body;
+  if (body.classList.contains("dark-theme")) {
+    body.classList.remove("dark-theme");
+    body.classList.add("light-theme");
+    localStorage.setItem("theme", "light");
+  } else {
+    body.classList.remove("light-theme");
+    body.classList.add("dark-theme");
+    localStorage.setItem("theme", "dark");
+  }
+});
+
+// Hent sist brukte tema fra localStorage
+window.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("theme") || "dark";
+  document.body.classList.add(saved + "-theme");
+});
