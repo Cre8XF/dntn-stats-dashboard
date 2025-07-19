@@ -104,6 +104,25 @@ h1 {
   padding: 0.5rem;
   border-radius: 6px;
 }
+.filters {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: inherit; /* matcher bakgrunn for begge tema */
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+border-bottom: 1px solid #ccc;
+.dark-theme .filters {
+  border-bottom: 1px solid #333;
+}
+thead th {
+  position: sticky;
+  top: 80px; /* juster basert på filters-høyde */
+  z-index: 5;
+  background: inherit;
+}
+
 button {
   padding: 0.5rem 1rem;
   margin-left: 0.5rem;
@@ -150,4 +169,11 @@ td {
 }
 .kill-grid {
   gap: 0.5rem 3rem; /* var 2rem */
+}
+.kill-grid div:nth-child(n + 4) span {
+  color: #7e0707; /* stålblå i lys tema */
+}
+
+.dark-theme .kill-grid div:nth-child(n + 4) span {
+  color: #00ffc8;
 }
