@@ -137,3 +137,14 @@ td {
     transform: translateY(0);
   }
 }
+.detail-card .kill-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 2rem;
+  margin-top: 0.8rem;
+}
+
+.kill-grid span {
+  font-weight: bold;
+  color: inherit;
+}

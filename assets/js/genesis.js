@@ -58,12 +58,19 @@ function renderTable(data) {
       const detailCell = document.createElement("td");
       detailCell.colSpan = 5;
       detailCell.innerHTML = `
-        <div class="detail-card">
-          <strong>${p.name}</strong><br/>
-          T1: ${p.killsT1} | T2: ${p.killsT2} | T3: ${p.killsT3} | T4: ${p.killsT4}<br/>
-          T5: ${p.killsT5} | T6: ${p.killsT6}
-        </div>
-      `;
+  <div class="detail-card">
+    <strong>${p.name}</strong>
+    <div class="kill-grid">
+      <div><span>T1:</span> ${p.killsT1.toLocaleString()}</div>
+      <div><span>T4:</span> ${p.killsT4.toLocaleString()}</div>
+      <div><span>T2:</span> ${p.killsT2.toLocaleString()}</div>
+      <div><span>T5:</span> ${p.killsT5.toLocaleString()}</div>
+      <div><span>T3:</span> ${p.killsT3.toLocaleString()}</div>
+      <div><span>T6:</span> ${p.killsT6.toLocaleString()}</div>
+    </div>
+  </div>
+`;
+
       detailRow.appendChild(detailCell);
       tbody.insertBefore(detailRow, row.nextSibling);
     });
