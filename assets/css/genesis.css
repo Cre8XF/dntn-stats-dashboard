@@ -1,0 +1,73 @@
+
+body {
+  background-color: #0d0d0d;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  color: #00ffcc;
+}
+
+.filters {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.filters input {
+  margin: 0.3rem;
+  padding: 0.4rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #1a1a1a;
+  color: #fff;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  background-color: #1f1f1f;
+  border: 1px solid #555;
+  color: #fff;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #333;
+  text-align: left;
+}
+
+th {
+  background-color: #111;
+  color: #00ffcc;
+}
+
+tr:hover {
+  background-color: #1a1a1a;
+  cursor: pointer;
+}
+
+.detail-row {
+  background-color: #1b1b1b;
+}
+
+.detail-card {
+  padding: 1rem 2rem;
+  border-left: 4px solid #00ffcc;
+  box-shadow: 0 0 12px rgba(0, 255, 200, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

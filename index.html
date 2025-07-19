@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DNTN Alliance Stats</title>
+  <link rel="stylesheet" href="assets/css/genesis.css" />
+</head>
+<body>
+  <h1>Alliance Stats Dashboard</h1>
+
+  <div class="filters">
+    <select id="eventSelect">
+      <option value="GW_July">Genesis War – July</option>
+      <option value="IR_June">Island Raid – June</option>
+      <option value="AR_July">Archipelago Raid – July</option>
+    </select>
+    <input type="text" id="searchName" placeholder="Søk på navn..." />
+    <input type="text" id="searchID" placeholder="ID" />
+    <button id="resetBtn">Reset</button>
+  </div>
+
+  <div id="tableContainer"></div>
+
+  <script src="assets/js/genesis.js"></script>
+</body>
+</html>

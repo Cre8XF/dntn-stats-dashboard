@@ -1,0 +1,58 @@
+
+body {
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  color: #00ff99;
+  margin-bottom: 2rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #333;
+  text-align: left;
+}
+
+th {
+  background-color: #111;
+  color: #00ffcc;
+}
+
+tr:hover {
+  background-color: #1a1a1a;
+  cursor: pointer;
+}
+
+.detail-card {
+  background-color: #1e1e1e;
+  border-left: 4px solid #00ffcc;
+  box-shadow: 0 0 12px rgba(0, 255, 200, 0.3);
+  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.detail-card h3 {
+  margin-top: 0;
+  color: #00ffcc;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
