@@ -112,10 +112,14 @@ h1 {
   padding: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-border-bottom: 1px solid #ccc;
+.light-theme .filters {
+  border-bottom: 1px solid #ccc;
+}
+
 .dark-theme .filters {
   border-bottom: 1px solid #333;
 }
+
 thead th {
   position: sticky;
   top: 80px; /* juster basert på filters-høyde */
@@ -176,4 +180,34 @@ td {
 
 .dark-theme .kill-grid div:nth-child(n + 4) span {
   color: #00ffc8;
+}
+/* ==== RESPONSIVE DESIGN ==== */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .filters input,
+  .filters select,
+  .filters button {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  th,
+  td {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .kill-grid {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .detail-card {
+    font-size: 0.9rem;
+  }
 }
