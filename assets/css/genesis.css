@@ -301,3 +301,49 @@ td {
     font-size: 0.9rem;
   }
 }
+/* === Select-meny styling === */
+.filters select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #888;
+  font-size: 1rem;
+  min-width: 160px;
+  background-color: #fff;
+  color: inherit;
+}
+
+.dark-theme .filters select {
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.plasma-theme .filters select {
+  background-color: #1e0033;
+  color: #fff;
+  border: 1px solid #aa00ff;
+}
+
+.sunset-theme .filters select {
+  background-color: #fff3e0;
+  color: #4d2e00;
+  border: 1px solid #cc7a00;
+}
+
+/* === Responsiv layout på mobil === */
+@media (max-width: 768px) {
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .filters input,
+  .filters select,
+  .filters button {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
