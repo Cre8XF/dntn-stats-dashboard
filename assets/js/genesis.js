@@ -154,7 +154,7 @@ themeSelect.addEventListener("change", (e) => {
 window.addEventListener("DOMContentLoaded", () => {
   const saved = localStorage.getItem("theme") || "light-theme";
   applyTheme(saved);
-  loadData(currentData);
 });
+
 
 
