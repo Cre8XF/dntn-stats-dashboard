@@ -1,24 +1,31 @@
-
 <!DOCTYPE html>
 <html lang="no">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DNTN Alliance Stats</title>
   <link rel="stylesheet" href="assets/css/genesis.css" />
 </head>
+
 <body class="light-theme">
 
   <h1>Alliance Stats Dashboard</h1>
 
   <div class="filters">
-    <button id="toggleThemeBtn">🌓 Change Theme</button>
+    <select id="themeSelect">
+      <option value="light-theme">☀️ Light</option>
+      <option value="dark-theme">🌑 Dark</option>
+      <option value="plasma-theme">⚡ Plasma</option>
+      <option value="sunset-theme">🌅 Sunset</option>
+    </select>
 
     <select id="eventSelect">
       <option value="GW_July">Genesis War – July</option>
       <option value="IR_June">Island Raid – June</option>
       <option value="AR_July">Archipelago Raid – July</option>
     </select>
+
     <input type="text" id="searchName" placeholder="search Name..." />
     <input type="text" id="searchID" placeholder="ID" />
     <button id="resetBtn">Reset</button>
@@ -28,4 +35,5 @@
 
   <script src="assets/js/genesis.js"></script>
 </body>
+
 </html>

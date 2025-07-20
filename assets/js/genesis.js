@@ -137,26 +137,24 @@ document.getElementById("eventSelect").addEventListener("change", e => {
   loadData(currentData);
 });
 
-loadData(currentData);
-const themeBtn = document.getElementById("toggleThemeBtn");
+const themes = ["light-theme", "dark-theme", "plasma-theme", "sunset-theme"];
+const themeSelect = document.getElementById("themeSelect");
 
-themeBtn.addEventListener("click", () => {
-  const body = document.body;
-  if (body.classList.contains("dark-theme")) {
-    body.classList.remove("dark-theme");
-    body.classList.add("light-theme");
-    localStorage.setItem("theme", "light");
-  } else {
-    body.classList.remove("light-theme");
-    body.classList.add("dark-theme");
-    localStorage.setItem("theme", "dark");
-  }
+function applyTheme(theme) {
+  document.body.classList.remove(...themes);
+  document.body.classList.add(theme);
+  localStorage.setItem("theme", theme);
+  themeSelect.value = theme;
+}
+
+themeSelect.addEventListener("change", (e) => {
+  applyTheme(e.target.value);
 });
 
-// Hent sist brukte tema fra localStorage
 window.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("theme") || "light"; // 👈 her er endringen
-  document.body.classList.remove("dark-theme", "light-theme");
-  document.body.classList.add(`${saved}-theme`);
+  const saved = localStorage.getItem("theme") || "light-theme";
+  applyTheme(saved);
+  loadData(currentData);
 });
+
 
