@@ -10,30 +10,55 @@
 
 <body class="light-theme">
 
-  <h1>Alliance Stats Dashboard</h1>
+  <header class="dashboard-header">
+    <h1>Alliance Stats Dashboard</h1>
+    <p>View player stats by event and month – use filters below to refine the table.</p>
+    <div class="theme-switch">
+      <label for="themeSelect">Theme:</label>
+      <select id="themeSelect">
+        <option value="light-theme" selected>☀️ Light</option>
+        <option value="dark-theme">🌑 Dark</option>
+        <option value="plasma-theme">⚡ Plasma</option>
+        <option value="sunset-theme">🌅 Sunset</option>
+      </select>
+    </div>
+  </header>
 
   <div class="filters">
-    <select id="themeSelect">
-      <option value="light-theme" selected>☀️ Light</option>
-      <option value="dark-theme">🌑 Dark</option>
-      <option value="plasma-theme">⚡ Plasma</option>
-      <option value="sunset-theme">🌅 Sunset</option>
-    </select>
+    <div class="filter-group">
+      <label for="monthFilter">Month</label>
+      <select id="monthFilter">
+        <option value="">All months</option>
+      </select>
+    </div>
 
-    <select id="eventSelect">
-      <option value="GW_July">Genesis War – July</option>
-      <option value="IR_June">Island Raid – June</option>
-      <option value="AR_July">Archipelago Raid – July</option>
-    </select>
+    <div class="filter-group">
+      <label for="eventSelect">Event</label>
+      <select id="eventSelect">
+        <option value="">Select event...</option>
+      </select>
+    </div>
 
-    <input type="text" id="searchName" placeholder="search Name..." />
-    <input type="text" id="searchID" placeholder="ID" />
-    <button id="resetBtn">Reset</button>
+    <div class="filter-group">
+      <label for="searchName">Search Name</label>
+      <input type="text" id="searchName" placeholder="search Name..." />
+    </div>
+
+    <div class="filter-group">
+      <label for="searchID">Search ID</label>
+      <input type="text" id="searchID" placeholder="ID" />
+    </div>
+
+    <div class="filter-group">
+      <label>&nbsp;</label>
+      <button id="resetBtn">Reset</button>
+    </div>
   </div>
 
   <div id="tableContainer"></div>
 
-  <script src="assets/js/genesis.js"></script>
+  <script src="assets/js/genesis.js?v=1"></script>
+
 </body>
 
 </html>
