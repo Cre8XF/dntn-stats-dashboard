@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1321895079,
+    "name": "Captain Tony",
+    "might": 344091503,
+    "points": 33880,
+    "killsT1": 0,
+    "killsT2": 0,
+    "killsT3": 0,
+    "killsT4": 318305610,
+    "killsT5": 503454510,
+    "killsT6": 686509540,
+    "event": "AL",
+    "month": "January",
+    "reward": ""
+  },
+  {
+    "id": 1683843497,
+    "name": "Emyrian",
+    "might": 164737488,
+    "points": 14790,
+    "killsT1": 0,
+    "killsT2": 0,
+    "killsT3": 0,
+    "killsT4": 42493198,
+    "killsT5": 78350928,
+    "killsT6": 47846224,
+    "event": "AL",
+    "month": "January",
+    "reward": ""
+  },
+  {
+    "id": 1926177735,
+    "name": "PAYBACK",
+    "might": 105610846,
+    "points": 19625,
+    "killsT1": 0,
+    "killsT2": 0,
+    "killsT3": 0,
+    "killsT4": 1660433,
+    "killsT5": 4675865,
+    "killsT6": 1759436,
+    "event": "AL",
+    "month": "January",
+    "reward": ""
+  }
+]

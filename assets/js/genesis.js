@@ -1,8 +1,9 @@
-
-// === DNTN STATS.JS – FORENKLET FOR MONTH + EVENTSELECT ===
+// === genesis.js med Top 10-visning ved oppstart ===
 let players = [];
 let currentSort = { column: null, ascending: true };
 let currentData = "";
+let allFiles = [];
+let filteredFiles = [];
 
 const themes = ["light-theme", "dark-theme", "plasma-theme", "sunset-theme"];
 const themeSelect = document.getElementById("themeSelect");
@@ -14,7 +15,8 @@ const eventLabels = {
   GW: "Genesis War",
   IR: "Island Raid",
   AL: "Alliance League",
-  DS: "District Showdown"
+  DS: "District Showdown",
+  IR2: "Island Raid 2"
 };
 
 function applyTheme(theme) {
@@ -24,26 +26,15 @@ function applyTheme(theme) {
   themeSelect.value = theme;
 }
 
-themeSelect.addEventListener("change", (e) => {
-  applyTheme(e.target.value);
-});
-
-function parseFileName(filename) {
-  const match = filename.match(/^([A-Z]+)_([A-Za-z]+)\.json$/);
-  if (!match) return null;
-  return {
-    event: match[1],
-    month: match[2],
-    filename: filename.replace(".json", "")
-  };
-}
+themeSelect.addEventListener("change", (e) => applyTheme(e.target.value));
 
 function loadData(file) {
-  fetch(`assets/data/${file}.json`)
+  fetch(`assets/data/${file}`)
     .then(res => res.json())
     .then(data => {
       players = data.sort((a, b) => b.points - a.points);
       currentSort = { column: "points", ascending: false };
+      document.getElementById("topPlayers").style.display = "none";
       renderTable(players);
     });
 }
@@ -66,12 +57,13 @@ function renderTable(data) {
   `;
   const tbody = table.querySelector("tbody");
 
-  data.forEach((p) => {
+  data.forEach(p => {
     const row = document.createElement("tr");
+    const killsTotal = p.killsT1 + p.killsT2 + p.killsT3 + p.killsT4 + p.killsT5 + p.killsT6;
     row.innerHTML = `
       <td>${p.name}</td>
       <td>${p.might.toLocaleString()}</td>
-      <td>${p.killsTotal.toLocaleString()}</td>
+      <td>${killsTotal.toLocaleString()}</td>
       <td>${p.points.toLocaleString()}</td>
       <td>${p.id}</td>
     `;
@@ -99,6 +91,7 @@ function renderTable(data) {
             <div><span>T5:</span> ${p.killsT5.toLocaleString()}</div>
             <div><span>T3:</span> ${p.killsT3.toLocaleString()}</div>
             <div><span>T6:</span> ${p.killsT6.toLocaleString()}</div>
+            <div><span>Reward:</span> ${p.reward || "-"}</div>
           </div>
         </div>
       `;
@@ -128,6 +121,18 @@ function renderTable(data) {
   container.appendChild(table);
 }
 
+function renderTopPlayers(players) {
+  const topSection = document.getElementById("topPlayers");
+  const list = document.getElementById("topPlayersList");
+  list.innerHTML = "";
+  players.slice(0, 10).forEach((p, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${index + 1}. <strong>${p.name}</strong> – ${p.points.toLocaleString()} pts`;
+    list.appendChild(li);
+  });
+  topSection.style.display = "block";
+}
+
 function cleanString(str) {
   return str.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
 }
@@ -135,69 +140,176 @@ function cleanString(str) {
 function applyFilters() {
   const nameFilter = cleanString(document.getElementById("searchName").value);
   const idFilter = document.getElementById("searchID").value.trim();
-  let filtered = players.filter(p =>
+  const filtered = players.filter(p =>
     cleanString(p.name).includes(nameFilter) &&
     (idFilter === "" || p.id.toString().includes(idFilter))
   );
   renderTable(filtered);
 }
 
-document.getElementById("searchName").addEventListener("input", applyFilters);
-document.getElementById("searchID").addEventListener("input", applyFilters);
 document.getElementById("resetBtn").addEventListener("click", () => {
   document.getElementById("searchName").value = "";
   document.getElementById("searchID").value = "";
   monthFilter.value = "";
-  renderEventSelect(filteredList);
+  filteredFiles = allFiles;
+  renderEventOptions(filteredFiles);
   renderTable(players);
+  document.getElementById("topPlayers").style.display = "none";
 });
 
-let parsedFiles = [];
-let filteredList = [];
+monthFilter.addEventListener("change", () => {
+  const selectedMonth = monthFilter.value?.trim().toLowerCase();
+  filteredFiles = selectedMonth
+    ? allFiles.filter(f => f.month?.trim().toLowerCase() === selectedMonth)
+    : allFiles;
+  renderEventOptions(filteredFiles);
+});
 
-function renderEventSelect(files) {
-  eventSelect.innerHTML = '<option value="">Select event...</option>';
-  files.forEach(f => {
-    const label = `${eventLabels[f.event] || f.event} – ${f.month}`;
+eventSelect.addEventListener("change", e => {
+  const selectedFile = e.target.value;
+  if (selectedFile) {
+    currentData = selectedFile;
+    loadData(currentData);
+  }
+});
+
+function renderMonthOptions(files) {
+  const monthOrder = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const uniqueMonths = [...new Set(files.map(f => f.month))];
+  const sortedMonths = monthOrder.filter(m => uniqueMonths.includes(m));
+  monthFilter.innerHTML = '<option value="">All months</option>';
+  sortedMonths.forEach(month => {
     const opt = document.createElement("option");
-    opt.value = f.filename;
-    opt.textContent = label;
+    opt.value = month;
+    opt.textContent = month;
+    monthFilter.appendChild(opt);
+  });
+}
+
+function renderEventOptions(files) {
+  eventSelect.innerHTML = '<option value="">Select event...</option>';
+  files.forEach(file => {
+    const opt = document.createElement("option");
+    opt.value = file.file;
+    opt.textContent = (eventLabels[file.event] || file.event) + " – " + file.month;
     eventSelect.appendChild(opt);
   });
 }
 
-monthFilter.addEventListener("change", () => {
-  const selectedMonth = monthFilter.value;
-  filteredList = parsedFiles.filter(f => selectedMonth === "" || f.month === selectedMonth);
-  renderEventSelect(filteredList);
-});
-
-eventSelect.addEventListener("change", e => {
-  currentData = e.target.value;
-  loadData(currentData);
-});
-
 window.addEventListener("DOMContentLoaded", () => {
-  const saved = localStorage.getItem("theme") || "light-theme";
-  applyTheme(saved);
+  const savedTheme = localStorage.getItem("theme") || "light-theme";
+  applyTheme(savedTheme);
 
   fetch("assets/data/index.json")
     .then(res => res.json())
-    .then(fileList => {
-      parsedFiles = fileList.map(parseFileName).filter(Boolean);
-      const uniqueMonths = [...new Set(parsedFiles.map(f => f.month))];
-      monthFilter.innerHTML = '<option value="">All months</option>';
-      uniqueMonths.forEach(month => {
-        const opt = document.createElement("option");
-        opt.value = month;
-        opt.textContent = month;
-        monthFilter.appendChild(opt);
-      });
-      filteredList = parsedFiles;
-      renderEventSelect(parsedFiles);
-      if (parsedFiles.length > 0) {
-        currentData = parsedFiles[0].filename;
-        loadData(currentData);
+    .then(data => {
+      allFiles = data;
+      filteredFiles = allFiles;
+      renderMonthOptions(allFiles);
+      renderEventOptions(allFiles);
+      initDashboardStats(allFiles);
+    }); // ← denne manglet hos deg
+}); // ← og denne også
+
+
+      // === Alliance Stats Summary: Multi-stat Dashboard ===
+function renderTopPlayers(players) {
+  const list = document.getElementById("topPlayers");
+  list.innerHTML = "";
+  players.slice(0, 10).forEach((p, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${i + 1}. <strong>${p.name}</strong> – ${p.points.toLocaleString()} pts`;
+    list.appendChild(li);
+  });
+}
+
+function renderTopKills(players) {
+  const list = document.getElementById("topKills");
+  list.innerHTML = "";
+  players.slice(0, 10).forEach((p, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${i + 1}. <strong>${p.name}</strong> – ${p.kills.toLocaleString()} kills`;
+    list.appendChild(li);
+  });
+}
+
+function renderTopEvents(players) {
+  const list = document.getElementById("topEvents");
+  list.innerHTML = "";
+  players.slice(0, 10).forEach((p, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${i + 1}. <strong>${p.name}</strong> – ${p.events} events`;
+    list.appendChild(li);
+  });
+}
+
+function renderTopSingleScores(players) {
+  const list = document.getElementById("topSingle");
+  list.innerHTML = "";
+  players.slice(0, 10).forEach((p, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `${i + 1}. <strong>${p.name}</strong> – ${p.best.toLocaleString()} pts`;
+    list.appendChild(li);
+  });
+}
+
+function renderUniquePlayerCount(count) {
+  const box = document.getElementById("uniquePlayers");
+  box.textContent = count.toLocaleString();
+}
+
+function initDashboardStats(allFiles) {
+  Promise.all(
+    allFiles.map(file => fetch(`assets/data/${file.file}`).then(res => res.json()))
+  ).then(results => {
+    const merged = {};
+    const unique = new Set();
+
+    results.flat().forEach(p => {
+      const key = p.id || p.name;
+      if (!key) return;
+      unique.add(key);
+
+      if (!merged[key]) {
+        merged[key] = {
+          name: p.name || "Unknown",
+          points: p.points || 0,
+          kills: 0,
+          events: 1,
+          best: p.points || 0
+        };
+      } else {
+        merged[key].points += p.points || 0;
+        merged[key].events++;
+        if ((p.points || 0) > merged[key].best) merged[key].best = p.points;
       }
+
+      for (let i = 1; i <= 6; i++) {
+        merged[key].kills += p[`killsT${i}`] || 0;
+      }
+    });
+
+    const all = Object.values(merged);
+    renderTopPlayers([...all].sort((a, b) => b.points - a.points));
+    renderTopKills([...all].sort((a, b) => b.kills - a.kills));
+    renderTopEvents([...all].sort((a, b) => b.events - a.events));
+    renderTopSingleScores([...all].sort((a, b) => b.best - a.best));
+    renderUniquePlayerCount(unique.size);
+  });
+}
+
+// Kjør ved DOM load
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("theme") || "light-theme";
+  applyTheme(savedTheme);
+
+  fetch("assets/data/index.json")
+    .then(res => res.json())
+    .then(data => {
+      allFiles = data;
+      filteredFiles = allFiles;
+      renderMonthOptions(allFiles);
+      renderEventOptions(allFiles);
+      initDashboardStats(allFiles);
     });
 });

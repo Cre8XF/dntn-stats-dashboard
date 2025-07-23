@@ -1,5 +1,108 @@
 [
-  "AR_July.json",
-  "GW_July.json",
-  "IR_June.json"
+  {
+    "file": "IR_January.json",
+    "month": "January",
+    "event": "IR"
+  },
+  {
+    "file": "AR_January.json",
+    "month": "January",
+    "event": "AR"
+  },
+  {
+    "file": "GW_January.json",
+    "month": "January",
+    "event": "GW"
+  },
+  {
+    "file": "AL_January.json",
+    "month": "January",
+    "event": "AL"
+  },
+  {
+    "file": "DS_January.json",
+    "month": "January",
+    "event": "DS"
+  },
+  {
+    "file": "IR_June.json",
+    "month": "June",
+    "event": "IR"
+  },
+  {
+    "file": "AR_July.json",
+    "month": "July",
+    "event": "AR"
+  },
+  {
+    "file": "GW_July.json",
+    "month": "July",
+    "event": "GW"
+  },
+  {
+    "file": "IR_February.json",
+    "month": "February",
+    "event": "IR"
+  },
+  {
+    "file": "GW_February.json",
+    "month": "February",
+    "event": "GW"
+  },
+  {
+    "file": "AL_February.json",
+    "month": "February",
+    "event": "AL"
+  },
+  {
+    "file": "DS_February.json",
+    "month": "February",
+    "event": "DS"
+  },
+  {
+    "file": "IR_March.json",
+    "month": "March",
+    "event": "IR"
+  },
+  {
+    "file": "GW_March.json",
+    "month": "March",
+    "event": "GW"
+  },
+  {
+    "file": "AL_March.json",
+    "month": "March",
+    "event": "AL"
+  },
+  {
+    "file": "DS_March.json",
+    "month": "March",
+    "event": "DS"
+  },
+  {
+  "file": "IR_April.json",
+  "month": "April",
+  "event": "IR"
+},
+{
+  "file": "IR_April_2.json",
+  "month": "April",
+  "event": "IR2"
+},
+{
+  "file": "GW_April.json",
+  "month": "April",
+  "event": "GW"
+},
+{
+  "file": "DS_April.json",
+  "month": "April",
+  "event": "DS"
+},
+{
+  "file": "AL_April.json",
+  "month": "April",
+  "event": "AL"
+}
+
 ]
