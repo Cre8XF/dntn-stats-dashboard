@@ -816,3 +816,61 @@ td {
     margin: 0 auto;
   }
 }
+/* Sticky filterpanel */
+.filters {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+thead th {
+  position: sticky;
+  top: 80px; /* justert etter filters */
+  z-index: 5;
+}
+
+/* LIGHT */
+.light-theme .filters {
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ccc;
+}
+
+.light-theme thead th {
+  background-color: #f4f4f4;
+  color: #111;
+}
+
+/* DARK */
+.dark-theme .filters {
+  background-color: #222;
+  border-bottom: 1px solid #333;
+}
+
+.dark-theme thead th {
+  background-color: #222;
+  color: #eee;
+}
+
+/* SUNSET */
+.sunset-theme .filters {
+  background-color: #f8d2b0;
+  border-bottom: 1px solid #e7a16d;
+}
+
+.sunset-theme thead th {
+  background-color: #f8d2b0;
+  color: #333;
+}
+
+/* PLASMA */
+.plasma-theme .filters {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #444;
+}
+
+.plasma-theme thead th {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+}
