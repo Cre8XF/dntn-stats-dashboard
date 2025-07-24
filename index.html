@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DNTN Alliance Stats</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/clean_split_css/main.css" />
 </head>
 
 <body class="light-theme">
@@ -25,35 +25,40 @@
   </header>
 
   <div class="filters">
-    <div class="filter-group">
-      <label for="monthFilter">Month</label>
-      <select id="monthFilter">
-        <option value="">All months</option>
-      </select>
+    <div class="filter-row">
+      <div class="filter-group">
+        <label for="monthFilter">Month</label>
+        <select id="monthFilter">
+          <option value="">All months</option>
+        </select>
+      </div>
+  
+      <div class="filter-group">
+        <label for="eventSelect">Event</label>
+        <select id="eventSelect">
+          <option value="">Select event...</option>
+        </select>
+      </div>
     </div>
-
-    <div class="filter-group">
-      <label for="eventSelect">Event</label>
-      <select id="eventSelect">
-        <option value="">Select event...</option>
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label for="searchName">Search Name</label>
-      <input type="text" id="searchName" placeholder="search Name..." />
-    </div>
-
-    <div class="filter-group">
-      <label for="searchID">Search ID</label>
-      <input type="text" id="searchID" placeholder="ID" />
-    </div>
-
-    <div class="filter-group">
-      <label>&nbsp;</label>
-      <button id="resetBtn">Reset</button>
+  
+    <div class="filter-row">
+      <div class="filter-group">
+        <label for="searchName">Search Name</label>
+        <input type="text" id="searchName" placeholder="search Name..." />
+      </div>
+  
+      <div class="filter-group">
+        <label for="searchID">Search ID</label>
+        <input type="text" id="searchID" placeholder="ID" />
+      </div>
+  
+      <div class="filter-group">
+        <label>&nbsp;</label>
+        <button id="resetBtn">Reset</button>
+      </div>
     </div>
   </div>
+
 
   <div id="tableContainer"></div>
 <p class="intro-note">

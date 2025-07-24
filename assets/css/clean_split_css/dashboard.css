@@ -1,0 +1,97 @@
+/* ==========================
+   Alliance Stats - Dashboard Styles
+   ========================== */
+
+/* === Dashboard Intro/Heading === */
+.dashboard-header {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.intro-note {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* === Dashboard Grid === */
+.dashboard-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin: 2rem 0;
+}
+
+/* === Stat Cards === */
+.summary-card,
+.summary-box,
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s, color 0.3s;
+}
+
+/* === Summary Grid === */
+.summary-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 2rem 0;
+}
+
+.summary-card h2 {
+  margin-bottom: 0.75rem;
+}
+
+.summary-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.summary-card li {
+  margin-bottom: 0.5rem;
+}
+
+.summary-card li strong {
+  color: #fff;
+}
+
+/* === Top Players Section === */
+.top-players-section {
+  margin: 3rem auto 2rem auto;
+  max-width: 800px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.top-players-section h2 {
+  margin-bottom: 1rem;
+}
+
+.top-players-section ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.top-players-section li {
+  margin-bottom: 0.5rem;
+}
+
+.top-players-section li strong {
+  color: #222;
+}
+
+/* === Optional: Stat highlight === */
+.big-stat {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
+}
