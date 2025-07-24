@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DNTN Excel to JSON Admin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 2rem;
+            background: #1e1e1e;
+            color: #f0f0f0;
+        }
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+
+        label,
+        select,
+        input,
+        button,
+        textarea {
+            display: block;
+            margin-bottom: 1rem;
+            width: 100%;
+            text-align: left;
+        }
+
+        textarea {
+            height: 200px;
+            background: #111;
+            color: #0f0;
+            font-family: monospace;
+            padding: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            border: 1px solid #555;
+            padding: 0.5rem;
+            text-align: left;
+        }
+
+        .preview {
+            max-height: 300px;
+            overflow: auto;
+            border: 1px solid #555;
+        }
+
+        .json-hint {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Excel to JSON Admin</h1>
+
+    <label>Upload Excel File</label>
+    <input type="file" id="excelFile" accept=".xlsx,.xls" title="Upload Excel File" placeholder="Choose an Excel file" />
+
+    <label>Event Code (e.g., IR, AR, GW)</label>
+    <input type="text" id="eventCode" title="Enter event code (e.g., IR, AR, GW)" placeholder="e.g., IR, AR, GW" />
+
+    <label>Month (e.g., January)</label>
+    <input type="text" id="monthValue" title="Enter month (e.g., January)" placeholder="e.g., January" />
+
+    <button onclick="handleConvert()">Convert to JSON</button>
+
+    <div class="json-hint">
+        ✅ After conversion, scroll to preview & copy index.json line
+    </div>
+
+    <textarea id="output" readonly title="Converted JSON output" placeholder="Converted JSON will appear here"></textarea>
+    <button onclick="downloadJSON()">⬇ Download JSON</button>
+
+    <label>index.json entry:</label>
+    <input type="text" id="indexLine" readonly title="Index.json entry line" placeholder="Index.json entry will appear here" />
+    <button onclick="copyIndexLine()">📋 Copy index line</button>
+
+    <div class="preview">
+        <table id="previewTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Points</th>
+                    <th>Reward</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+<hr />
+<h2>Validate Existing JSON File</h2>
+<label for="jsonFile">Upload JSON file for validation</label>
+<input type="file" id="jsonFile" accept=".json" title="Upload JSON file for validation" placeholder="Select a JSON file" />
+<button onclick="validateJson()">Validate JSON file (ID check)</button>
+<textarea id="validationOutput" readonly placeholder="Validation results will appear here"></textarea>
+
+    <script>
+        let lastJson = [];
+
+        function handleConvert() {
+            const file = document.getElementById("excelFile").files[0];
+            const eventCode = document.getElementById("eventCode").value.trim();
+            const month = document.getElementById("monthValue").value.trim();
+            if (!file || !eventCode || !month) {
+                alert("Please provide all inputs.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: "array" });
+                const result = [];
+
+                workbook.SheetNames.forEach(sheetName => {
+                    const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+                    rows.forEach(row => {
+                        if (!row.Name) return;
+                        result.push({
+                            name: row.Name,
+                            id: row.ID || row["Player ID"] || "",
+                            might: parseInt(row.Might) || 0,
+                            points: parseInt(row.Points) || 0,
+                            reward: row["Merit Reward"] || "",
+                            killsT1: parseInt(row.T1) || 0,
+                            killsT2: parseInt(row.T2) || 0,
+                            killsT3: parseInt(row.T3) || 0,
+                            killsT4: parseInt(row.T4) || 0,
+                            killsT5: parseInt(row.T5) || 0,
+                            killsT6: parseInt(row.T6) || 0,
+                            event: eventCode,
+                            month: month
+                        });
+                    });
+                });
+
+                lastJson = result;
+                document.getElementById("output").value = JSON.stringify(result, null, 2);
+                document.getElementById("indexLine").value = `{"file": "${eventCode}_${month}.json", "month": "${month}", "event": "${eventCode}"}`;
+                preview(result);
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function preview(data) {
+            const tbody = document.getElementById("previewTable").querySelector("tbody");
+            tbody.innerHTML = "";
+            data.slice(0, 20).forEach(p => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${p.name}</td><td>${p.id}</td><td>${p.points}</td><td>${p.reward}</td>`;
+                tbody.appendChild(row);
+            });
+        }
+
+        function downloadJSON() {
+            const eventCode = document.getElementById("eventCode").value.trim();
+            const month = document.getElementById("monthValue").value.trim();
+            const blob = new Blob([JSON.stringify(lastJson, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${eventCode}_${month}.json`;
+            a.click();
+        }
+
+        function copyIndexLine() {
+            const input = document.getElementById("indexLine");
+            input.select();
+            document.execCommand("copy");
+        }
+    </script>
+    <script>
+        function validateJson() {
+            const file = document.getElementById("jsonFile").files[0];
+            if (!file) {
+                alert("Choose a JSON file first.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const data = JSON.parse(e.target.result);
+                const result = validatePlayers(data);
+                const output = [];
+
+                if (result.missingIds.length === 0) {
+                    output.push("✅ No players with missing ID.\n");
+                } else {
+                    output.push(`⚠️ ${result.missingIds.length} players missing ID:`);
+                    result.missingIds.forEach(p => output.push(`- ${p.name} (${p.event} ${p.month})`));
+                }
+
+                if (result.duplicateIds.length === 0) {
+                    output.push("\n✅ No duplicate IDs with different names.");
+                } else {
+                    output.push(`\n⚠️ ${result.duplicateIds.length} duplicate IDs found:`);
+                    result.duplicateIds.forEach(d => {
+                        output.push(`- ID ${d.id} used by: ${d.names.join(" & ")} (${d.event} ${d.month})`);
+                    });
+                }
+
+                document.getElementById("validationOutput").value = output.join("\n");
+                console.log("Validation results:", result);
+            };
+            reader.readAsText(file);
+        }
+
+        function validatePlayers(players) {
+            const missingIds = players.filter(p => !p.id && p.id !== 0);
+            const idMap = new Map();
+            const duplicateIds = [];
+
+            players.forEach(player => {
+                if (!player.id && player.id !== 0) return;
+                const id = String(player.id).trim();
+                if (idMap.has(id)) {
+                    const existingName = idMap.get(id);
+                    if (existingName !== player.name) {
+                        duplicateIds.push({
+                            id: id,
+                            names: [existingName, player.name],
+                            event: player.event,
+                            month: player.month
+                        });
+                    }
+                } else {
+                    idMap.set(id, player.name);
+                }
+            });
+
+            return { missingIds, duplicateIds };
+        }
+    </script>
+
+</body>
+
+</html>

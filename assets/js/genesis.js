@@ -151,10 +151,23 @@ document.getElementById("resetBtn").addEventListener("click", () => {
   document.getElementById("searchName").value = "";
   document.getElementById("searchID").value = "";
   monthFilter.value = "";
+
+  const eventFilter = document.getElementById("eventFilter");
+  if (eventFilter) eventFilter.value = "";
+
   filteredFiles = allFiles;
   renderEventOptions(filteredFiles);
-  renderTable(players);
-  document.getElementById("topPlayers").style.display = "none";
+
+  // 🧹 Tøm tabellen fra tidligere event
+  const tableContainer = document.getElementById("tableContainer");
+  if (tableContainer) tableContainer.innerHTML = "";
+
+  // 🟢 Vis toppliste igjen
+  document.getElementById("topPlayers").style.display = "block";
+
+  // 🔁 Tegn topplisten på nytt
+  initDashboardStats(allFiles);
+   location.reload();
 });
 
 monthFilter.addEventListener("change", () => {
